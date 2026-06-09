@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gem World Holdings — Galle, Sri Lanka</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E9C8;
+    --deep: #0A0A0A;
+    --charcoal: #1A1610;
+    --warm-dark: #120F0A;
+    --cream: #FAF6EE;
+    --muted: #8A7D6A;
+    --text: #E8E0D0;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-dark);
+    color: var(--text);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, rgba(10,8,5,0.95) 0%, transparent 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #2A1F0A 0%, var(--warm-dark) 70%);
+  }
+
+  .hero-bg-gem {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle 400px at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(circle 300px at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+
+  /* Decorative diamond SVG */
+  .hero-diamond {
+    position: absolute;
+    opacity: 0.06;
+    width: 600px;
+    height: 600px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg);
+    animation: slowspin 60s linear infinite;
+  }
+
+  @keyframes slowspin { to { transform: translate(-50%, -50%) rotate(375deg); } }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    animation: fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    margin-bottom: 0.2em;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2.5rem auto;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s ease both;
+  }
+
+  .hero-divider::before, .hero-divider::after {
+    content: '';
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .hero-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
+
+  .hero-divider span {
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.85s ease both;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s 1s ease both;
+  }
+
+  .btn-primary {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 1.1rem 2.8rem;
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 1.1rem 2.8rem;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.5);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s, transform 0.3s;
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); transform: translateY(-2px); }
+
+  .hero-rating {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s ease both;
+  }
+
+  .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; }
+
+  .rating-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 4rem; }
+
+  .section-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-frame {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1C1508 0%, #2A1F0A 50%, #1A1208 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-frame::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .gem-icon {
+    font-size: 5rem;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.4));
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { filter: drop-shadow(0 0 30px rgba(201,168,76,0.3)); }
+    50%       { filter: drop-shadow(0 0 60px rgba(201,168,76,0.6)); }
+  }
+
+  .about-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .about-corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .about-corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+  .about-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+  .about-corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(232,224,208,0.75);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── GEMS / COLLECTION ── */
+  .collection-section {
+    background: linear-gradient(to bottom, var(--warm-dark) 0%, #0E0B06 50%, var(--warm-dark) 100%);
+  }
+
+  .collection-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .gems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .gem-card {
+    aspect-ratio: 1;
+    background: #130F08;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gem-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(201,168,76,0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .gem-card:hover::before { opacity: 1; }
+  .gem-card:hover { transform: scale(1.02); z-index: 2; }
+
+  .gem-card:nth-child(1) { background: linear-gradient(135deg, #130F08, #1A1208); }
+  .gem-card:nth-child(2) { background: linear-gradient(135deg, #0E0B08, #181310); }
+  .gem-card:nth-child(3) { background: linear-gradient(135deg, #10100A, #161408); }
+  .gem-card:nth-child(4) { background: linear-gradient(135deg, #100C08, #1C1410); }
+  .gem-card:nth-child(5) { background: linear-gradient(135deg, #12100A, #1A1610); }
+  .gem-card:nth-child(6) { background: linear-gradient(135deg, #0E0E0A, #181808); }
+
+  .gem-emoji {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.3));
+    transition: transform 0.4s, filter 0.4s;
+  }
+
+  .gem-card:hover .gem-emoji {
+    transform: scale(1.15) translateY(-4px);
+    filter: drop-shadow(0 0 35px rgba(201,168,76,0.6));
+  }
+
+  .gem-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .gem-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--muted);
+    opacity: 0;
+    position: absolute;
+    bottom: 2rem;
+    transition: opacity 0.4s;
+  }
+
+  .gem-card:hover .gem-desc { opacity: 1; }
+
+  /* ── WHY US ── */
+  .why-section {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 4rem;
+  }
+
+  .why-card {
+    padding: 3rem 2rem;
+    background: rgba(201,168,76,0.03);
+    border: 1px solid rgba(201,168,76,0.1);
+    text-align: center;
+    transition: background 0.4s, border-color 0.4s;
+  }
+
+  .why-card:hover {
+    background: rgba(201,168,76,0.07);
+    border-color: rgba(201,168,76,0.3);
+  }
+
+  .why-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .why-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .why-body {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: rgba(232,224,208,0.6);
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section {
+    background: #0A0804;
+    text-align: center;
+  }
+
+  .reviews-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 4rem auto 0;
+  }
+
+  .review-card {
+    padding: 2.5rem;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.12);
+    text-align: left;
+  }
+
+  .review-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 1.2rem; }
+
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(232,224,208,0.8);
+    margin-bottom: 1.5rem;
+  }
+
+  .review-author {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── VISIT ── */
+  .visit-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .visit-info-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .visit-info-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .visit-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .visit-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .visit-value {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(232,224,208,0.75);
+  }
+
+  .visit-value a {
+    color: var(--gold-light);
+    text-decoration: none;
+  }
+
+  .map-placeholder {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #130F08 0%, #0E0B06 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.4s;
+  }
+
+  .map-placeholder:hover { border-color: rgba(201,168,76,0.5); }
+
+  .map-placeholder::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .map-placeholder::after {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .map-pin {
+    font-size: 3rem;
+    position: relative;
+    z-index: 2;
+    animation: bounce 3s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .map-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+
+  .map-address {
+    font-size: 0.8rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060503;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 4rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .footer-brand-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-desc {
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: rgba(232,224,208,0.45);
+    max-width: 300px;
+  }
+
+  .footer-col-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .footer-links a {
+    font-size: 0.82rem;
+    color: rgba(232,224,208,0.5);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--gold-light); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: rgba(232,224,208,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    color: rgba(232,224,208,0.3);
+  }
+
+  .footer-rating span { color: var(--gold); }
+
+  /* ── FLOATING CTA ── */
+  .floating-cta {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-end;
+  }
+
+  .fab {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.5rem;
+    background: var(--gold);
+    color: var(--deep);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+  }
+
+  .fab:hover { background: var(--gold-light); transform: scale(1.03); }
+
+  .fab.secondary {
+    background: rgba(10,8,5,0.9);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .fab.secondary:hover { background: rgba(20,16,10,0.95); }
+
+  /* ── APPOINTMENT PAGE ── */
+  #appointment {
+    background: linear-gradient(to bottom, #0A0804 0%, var(--warm-dark) 100%);
+  }
+
+  .appt-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .appt-intro p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: rgba(232,224,208,0.65);
+    margin-bottom: 1.4rem;
+  }
+
+  .appt-perks {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .appt-perk {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .appt-perk-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .appt-perk-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(232,224,208,0.6);
+  }
+
+  .appt-perk-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  /* FORM */
+  .appt-form {
+    background: rgba(201,168,76,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 3.5rem;
+    position: relative;
+  }
+
+  .appt-form::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid rgba(201,168,76,0.06);
+    pointer-events: none;
+  }
+
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+
+  .form-title em { font-style: italic; color: var(--gold-light); }
+
+  .form-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 0.9rem 1.1rem;
+    color: var(--text);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s, background 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: rgba(201,168,76,0.5);
+    background: rgba(201,168,76,0.07);
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(138,125,106,0.5);
+    font-style: italic;
+  }
+
+  .form-select option {
+    background: #1A1408;
+    color: var(--text);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.7;
+  }
+
+  .select-wrapper {
+    position: relative;
+  }
+
+  .select-wrapper::after {
+    content: '◆';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.5rem;
+    color: var(--gold);
+    pointer-events: none;
+  }
+
+  .form-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    padding: 1.3rem 2rem;
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, letter-spacing 0.3s;
+  }
+
+  .form-submit:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    letter-spacing: 0.45em;
+  }
+
+  .form-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: rgba(138,125,106,0.6);
+    margin-top: 1.2rem;
+    font-style: italic;
+  }
+
+  /* SUCCESS STATE */
+  .appt-success {
+    display: none;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .appt-success.visible { display: block; }
+
+  .success-gem {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+
+  .success-title em { font-style: italic; color: var(--gold-light); }
+
+  .success-msg {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(232,224,208,0.6);
+    max-width: 320px;
+    margin: 0 auto 2rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 2rem; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .gems-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .reviews-wrapper { grid-template-columns: 1fr; }
+    .visit-section { grid-template-columns: 1fr; }
+    .appt-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    .appt-form { padding: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">The Gem World</a>
+  <ul class="nav-links">
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#visit">Visit</a></li>
+    <li><a href="#appointment" style="color:var(--gold);opacity:1;">Book Appointment</a></li>
+    <li><a href="tel:0777903698" style="color:var(--gold);opacity:1;">+94 77 790 3698</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-gem"></div>
+  <svg class="hero-diamond" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="100,10 190,80 160,190 40,190 10,80" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+    <polygon points="100,10 160,80 100,190 40,80" stroke="#C9A84C" stroke-width="0.4" fill="none"/>
+    <line x1="10" y1="80" x2="190" y2="80" stroke="#C9A84C" stroke-width="0.3"/>
+    <line x1="100" y1="10" x2="40" y2="190" stroke="#C9A84C" stroke-width="0.3"/>
+    <line x1="100" y1="10" x2="160" y2="190" stroke="#C9A84C" stroke-width="0.3"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Established in Galle · Sri Lanka</p>
+    <h1 class="hero-title">The Gem<br><em>World</em></h1>
+    <div class="hero-divider"><span>◆</span></div>
+    <p class="hero-sub">Exquisite Gemstones & Fine Jewellery Since Generations</p>
+    <div class="hero-cta-group">
+      <a href="#collection" class="btn-primary">Explore Collection</a>
+      <a href="#visit" class="btn-outline">Visit Our Store</a>
+    </div>
+  </div>
+
+  <div class="hero-rating">
+    <div class="stars">★★★★★</div>
+    <div class="rating-text">5.0 · 163 Reviews · Google</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:#0A0804;">
+  <div class="about">
+    <div class="about-visual">
+      <div class="about-frame">
+        <div class="about-corner tl"></div>
+        <div class="about-corner tr"></div>
+        <div class="about-corner bl"></div>
+        <div class="about-corner br"></div>
+        <div class="gem-icon">💎</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-eyebrow">Our Heritage</p>
+      <h2 class="section-title" style="margin-bottom:2rem;">Where Earth's<br><em>Finest Gems</em><br>Find Their Home</h2>
+      <p>Nestled in the heart of historic Galle, The Gem World Holdings is a premier destination for those who appreciate the rare, the radiant, and the refined. We specialise in Sri Lanka's world-renowned gemstones — sapphires, rubies, cat's eye, alexandrite, and more.</p>
+      <p>Every gem in our collection is hand-selected by our expert gemmologists, certified for authenticity, and presented with the transparency you deserve. Whether you seek a treasured keepsake or an investment-grade stone, we guide you with knowledge and passion.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">163+</div>
+          <div class="stat-label">Five-Star Reviews</div>
+        </div>
+        <div>
+          <div class="stat-num">5.0</div>
+          <div class="stat-label">Google Rating</div>
+        </div>
+        <div>
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Gem Varieties</div>
+        </div>
+        <div>
+          <div class="stat-num">Galle</div>
+          <div class="stat-label">Fort City, Sri Lanka</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection" class="collection-section" style="padding-left:0;padding-right:0;">
+  <div class="collection-header" style="padding:0 4rem;">
+    <p class="section-eyebrow">Our Gemstones</p>
+    <h2 class="section-title">A Treasury of<br><em>Natural Wonders</em></h2>
+  </div>
+  <div class="gems-grid">
+    <div class="gem-card">
+      <span class="gem-emoji">🔵</span>
+      <span class="gem-name">Ceylon Sapphire</span>
+      <span class="gem-desc">The Pride of Sri Lanka</span>
+    </div>
+    <div class="gem-card">
+      <span class="gem-emoji">🔴</span>
+      <span class="gem-name">Ruby</span>
+      <span class="gem-desc">Flame & Passion</span>
+    </div>
+    <div class="gem-card">
+      <span class="gem-emoji">💚</span>
+      <span class="gem-name">Emerald</span>
+      <span class="gem-desc">Verdant Brilliance</span>
+    </div>
+    <div class="gem-card">
+      <span class="gem-emoji">🟡</span>
+      <span class="gem-name">Cat's Eye</span>
+      <span class="gem-desc">Mystical Chatoyancy</span>
+    </div>
+    <div class="gem-card">
+      <span class="gem-emoji">🟣</span>
+      <span class="gem-name">Alexandrite</span>
+      <span class="gem-desc">Colour-Change Marvel</span>
+    </div>
+    <div class="gem-card">
+      <span class="gem-emoji">✨</span>
+      <span class="gem-name">Fine Jewellery</span>
+      <span class="gem-desc">Bespoke Craftsmanship</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section style="background:#0A0804;">
+  <div class="why-section">
+    <div style="text-align:center;margin-bottom:1rem;">
+      <p class="section-eyebrow">Why Choose Us</p>
+      <h2 class="section-title">The Gem World<br><em>Promise</em></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🏆</span>
+        <div class="why-title">Certified Gems</div>
+        <p class="why-body">Every stone is certified by recognised gemmological authorities, ensuring authenticity and value.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🔍</span>
+        <div class="why-title">Expert Guidance</div>
+        <p class="why-body">Our master gemmologists bring decades of expertise to help you find the perfect stone.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🌍</span>
+        <div class="why-title">Global Shipping</div>
+        <p class="why-body">We ship internationally with full insurance and customs documentation for your peace of mind.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💬</span>
+        <div class="why-title">Bespoke Service</div>
+        <p class="why-body">Custom jewellery creation and personal consultation — we bring your vision to life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="testimonials-section">
+  <p class="section-eyebrow">Guest Experiences</p>
+  <h2 class="section-title">What Our<br><em>Visitors Say</em></h2>
+  <div class="reviews-wrapper">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Absolutely breathtaking collection. The staff were incredibly knowledgeable and patient. I purchased a sapphire and couldn't be happier with the quality and price."</p>
+      <div class="review-author">— Sarah M., United Kingdom</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The finest gem shop in Galle, perhaps in all of Sri Lanka. Honest, transparent pricing and stunning stones. A must-visit for any gem enthusiast."</p>
+      <div class="review-author">— James T., Australia</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I was guided with such care and professionalism. The alexandrite I purchased is a family heirloom now. Truly a world-class establishment."</p>
+      <div class="review-author">— Akiko N., Japan</div>
+    </div>
+  </div>
+  <div style="margin-top:3rem;display:flex;align-items:center;justify-content:center;gap:1rem;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--gold-light);">5.0</div>
+    <div>
+      <div style="color:var(--gold);font-size:1.2rem;letter-spacing:0.1em;">★★★★★</div>
+      <div style="font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;margin-top:0.3rem;">163 Reviews on Google</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="visit-section">
+    <div>
+      <p class="section-eyebrow">Find Us</p>
+      <h2 class="section-title" style="margin-bottom:3rem;">Visit Our<br><em>Showroom</em></h2>
+      <div class="visit-info-item">
+        <span class="visit-icon">📍</span>
+        <div>
+          <div class="visit-label">Address</div>
+          <div class="visit-value">64 Thakkiya Road<br>Galle 80000, Sri Lanka</div>
+        </div>
+      </div>
+      <div class="visit-info-item">
+        <span class="visit-icon">⏰</span>
+        <div>
+          <div class="visit-label">Opening Hours</div>
+          <div class="visit-value">Open Daily · Closes 11:30 PM</div>
+        </div>
+      </div>
+      <div class="visit-info-item">
+        <span class="visit-icon">📞</span>
+        <div>
+          <div class="visit-label">Telephone</div>
+          <div class="visit-value"><a href="tel:0777903698">+94 77 790 3698</a></div>
+        </div>
+      </div>
+      <div class="visit-info-item">
+        <span class="visit-icon">🌐</span>
+        <div>
+          <div class="visit-label">Website</div>
+          <div class="visit-value"><a href="https://gemworldholdings.com" target="_blank">gemworldholdings.com</a></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;">
+        <a href="tel:0777903698" class="btn-primary">Call Us Now</a>
+        <a href="https://wa.me/94777903698" target="_blank" class="btn-outline">WhatsApp</a>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?q=64+Thakkiya+Rd+Galle+Sri+Lanka" target="_blank" class="map-placeholder">
+      <div class="map-pin">📍</div>
+      <div class="map-text">Get Directions</div>
+      <div class="map-address">64 Thakkiya Rd, Galle 80000</div>
+    </a>
+  </div>
+</section>
+
+<!-- APPOINTMENT -->
+<section id="appointment">
+  <div class="appt-wrapper">
+
+    <!-- LEFT: intro -->
+    <div class="appt-intro">
+      <p class="section-eyebrow">Private Consultation</p>
+      <h2 class="section-title" style="margin-bottom:2rem;">Book an<br><em>Appointment</em></h2>
+      <p>We invite you to experience The Gem World at your own pace. Whether you are searching for a rare collector's stone, a bespoke jewellery commission, or simply wish to learn about the world of Sri Lankan gems, our gemmologists are here to guide you.</p>
+      <p>Reserve your private viewing and enjoy undivided personal attention in our showroom on Thakkiya Road, Galle.</p>
+
+      <div class="appt-perks">
+        <div class="appt-perk">
+          <span class="appt-perk-icon">💎</span>
+          <div>
+            <div class="appt-perk-title">Private Viewing</div>
+            <div class="appt-perk-text">Exclusive access to our curated selection, presented just for you.</div>
+          </div>
+        </div>
+        <div class="appt-perk">
+          <span class="appt-perk-icon">🎓</span>
+          <div>
+            <div class="appt-perk-title">Expert Consultation</div>
+            <div class="appt-perk-text">One-on-one guidance from certified gemmologists with decades of experience.</div>
+          </div>
+        </div>
+        <div class="appt-perk">
+          <span class="appt-perk-icon">✍️</span>
+          <div>
+            <div class="appt-perk-title">Bespoke Design</div>
+            <div class="appt-perk-text">Discuss custom jewellery commissions and bring your vision to life.</div>
+          </div>
+        </div>
+        <div class="appt-perk">
+          <span class="appt-perk-icon">🌏</span>
+          <div>
+            <div class="appt-perk-title">International Clients Welcome</div>
+            <div class="appt-perk-text">We accommodate visitors from around the world — advance booking is recommended.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="appt-form" id="apptFormBox">
+      <div class="form-title">Reserve Your <em>Visit</em></div>
+      <div class="form-subtitle">Complimentary · No Obligation</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="appt-fname">First Name</label>
+          <input class="form-input" id="appt-fname" type="text" placeholder="e.g. Amara">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="appt-lname">Last Name</label>
+          <input class="form-input" id="appt-lname" type="text" placeholder="e.g. Perera">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="appt-email">Email Address</label>
+          <input class="form-input" id="appt-email" type="email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="appt-phone">Phone / WhatsApp</label>
+          <input class="form-input" id="appt-phone" type="tel" placeholder="+94 77 000 0000">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="appt-date">Preferred Date</label>
+          <input class="form-input" id="appt-date" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="appt-time">Preferred Time</label>
+          <div class="select-wrapper">
+            <select class="form-select" id="appt-time">
+              <option value="">Select a time</option>
+              <option>10:00 AM – 11:00 AM</option>
+              <option>11:00 AM – 12:00 PM</option>
+              <option>12:00 PM – 1:00 PM</option>
+              <option>2:00 PM – 3:00 PM</option>
+              <option>3:00 PM – 4:00 PM</option>
+              <option>4:00 PM – 5:00 PM</option>
+              <option>5:00 PM – 6:00 PM</option>
+              <option>7:00 PM – 8:00 PM</option>
+              <option>9:00 PM – 10:00 PM</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="appt-interest">Primary Interest</label>
+        <div class="select-wrapper">
+          <select class="form-select" id="appt-interest">
+            <option value="">Select a category</option>
+            <option>Ceylon Sapphires</option>
+            <option>Rubies</option>
+            <option>Cat's Eye Chrysoberyl</option>
+            <option>Alexandrite</option>
+            <option>Emeralds & Other Gems</option>
+            <option>Bespoke Jewellery Commission</option>
+            <option>Investment Gems</option>
+            <option>General Viewing</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="appt-country">Country of Residence</label>
+        <input class="form-input" id="appt-country" type="text" placeholder="e.g. United Kingdom">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="appt-msg">Special Requests or Notes</label>
+        <textarea class="form-textarea" id="appt-msg" placeholder="Tell us about your requirements, budget range, or any questions you have…"></textarea>
+      </div>
+
+      <button class="form-submit" onclick="submitAppointment()">Request Appointment ◆</button>
+      <div class="form-note">We will confirm your appointment within 24 hours via email or WhatsApp.</div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="appt-success" id="apptSuccess">
+      <div class="success-gem">💎</div>
+      <div class="success-title">Thank You for<br><em>Reaching Out</em></div>
+      <p class="success-msg">Your appointment request has been received. Our team will contact you within 24 hours to confirm your private viewing at The Gem World, Galle.</p>
+      <a href="#visit" class="btn-outline">Plan Your Visit</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">The Gem World Holdings</div>
+      <div class="footer-tagline">Pvt. Ltd. — Galle, Sri Lanka</div>
+      <p class="footer-desc">A premier gemstone and fine jewellery destination in the historic city of Galle. Specialists in Ceylon sapphires, rubies, cat's eye, and rare collector gems since our founding.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#collection">Our Gems</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#visit">Visit</a></li>
+        <li><a href="https://gemworldholdings.com" target="_blank">Website</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:0777903698">+94 77 790 3698</a></li>
+        <li><a href="https://wa.me/94777903698">WhatsApp</a></li>
+        <li><a href="https://maps.google.com/?q=64+Thakkiya+Rd+Galle">Directions</a></li>
+        <li><a href="#appointment">Book Appointment</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 The Gem World Holdings (Pvt) Ltd · Galle, Sri Lanka · All Rights Reserved</div>
+    <div class="footer-rating"><span>★★★★★</span> 5.0 · 163 Reviews</div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<div class="floating-cta">
+  <a href="https://wa.me/94777903698" target="_blank" class="fab secondary">💬 WhatsApp</a>
+  <a href="tel:0777903698" class="fab">📞 Call Now</a>
+</div>
+
+<script>
+function submitAppointment() {
+  const fname = document.getElementById('appt-fname').value.trim();
+  const email = document.getElementById('appt-email').value.trim();
+  const date  = document.getElementById('appt-date').value;
+  const time  = document.getElementById('appt-time').value;
+
+  if (!fname || !email || !date || !time) {
+    // Highlight empty required fields
+    ['appt-fname','appt-email','appt-date','appt-time'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'rgba(201,100,76,0.7)';
+        el.addEventListener('input', () => el.style.borderColor = '', { once: true });
+      }
+    });
+    return;
+  }
+
+  // Show success state
+  document.getElementById('apptFormBox').style.display = 'none';
+  const success = document.getElementById('apptSuccess');
+  success.classList.add('visible');
+  success.style.gridColumn = '1 / -1';
+}
+
+// Set min date to today
+window.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  const dateInput = document.getElementById('appt-date');
+  if (dateInput) dateInput.min = today;
+});
+</script>
+</body>
+</html>
